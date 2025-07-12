@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
-	"terraform-provider-pelican/internal/pelican"
+	client "terraform-provider-pelican/internal/pelican"
 )
 
 // Ensure the implementation satisfies the expected interfaces.
@@ -147,7 +147,9 @@ func (p *pelicanProvider) Configure(ctx context.Context, req provider.ConfigureR
 
 // DataSources defines the data sources implemented in the provider.
 func (p *pelicanProvider) DataSources(_ context.Context) []func() datasource.DataSource {
-	return nil
+	return []func() datasource.DataSource{
+		NewUsersDataSource,
+	}
 }
 
 // Resources defines the resources implemented in the provider.

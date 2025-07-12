@@ -6,11 +6,9 @@ package main
 import (
 	"context"
 	"flag"
-	"log"
-
-	"terraform-provider-pelican/internal/provider"
-
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"log"
+	"terraform-provider-pelican/internal/provider"
 )
 
 var (
@@ -24,9 +22,14 @@ var (
 
 func main() {
 	var debug bool
-
+	var dev bool
 	flag.BoolVar(&debug, "debug", false, "set to true to run the provider with support for debuggers like delve")
+	flag.BoolVar(&dev, "dev", false, "set to true to run development client")
 	flag.Parse()
+
+	if dev {
+		return
+	}
 
 	opts := providerserver.ServeOpts{
 		// NOTE: This is not a typical Terraform Registry provider address,
